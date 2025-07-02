@@ -1,11 +1,11 @@
 import pandas as pd
 
-# === 1. Загрузка файлов ===
+""""1. Загрузка файлов"""
 
 garages_df = pd.read_excel('arenda.xlsx')
 statement_df = pd.read_excel('print 2.xlsx')
 
-# === 2. Подготовка данных выписки ===
+"""2. Подготовка данных выписки"""
 
 # Считываем выписку, пропуская первые 18 строк до данных
 statement_data = pd.read_excel(
@@ -30,11 +30,11 @@ statement_data["Сумма"] = (
     .astype(float)
 )
 
-# === 3. Подготовка таблицы гаражей ===
+"""3. Подготовка таблицы гаражей"""
 
 garages_df["Сумма"] = garages_df["Сумма"].astype(float)
 
-# === 4. Объединение таблиц по сумме ===
+"""4. Объединение таблиц по сумме"""
 
 result = pd.merge(
     garages_df,
@@ -46,8 +46,8 @@ result = pd.merge(
 # Добавляем колонку 'Оплачено' со значениями 'ДА' или 'НЕТ'
 result["Оплачено"] = result["Дата операции"].notna().apply(lambda x: "ДА" if x else "НЕТ")
 
-# === 5. Сохраняем результат ===
+"""5. Сохраняем результат"""
 
 result.to_excel("garages_checked.xlsx", index=False)
 
-print("✅ Сверка завершена. Результат сохранён в 'garages_checked.xlsx'.")
+print("Сверка завершена. Результат сохранён в 'garages_checked.xlsx'.")
